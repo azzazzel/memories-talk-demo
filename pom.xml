@@ -22,13 +22,10 @@
 			</dependency>
 			<dependency>
 				<groupId>org.axonframework</groupId>
-				<artifactId>axon-configuration</artifactId>
-				<version>4.4.3</version>
-			</dependency>
-			<dependency>
-				<groupId>org.axonframework</groupId>
-				<artifactId>axon-server-connector</artifactId>
-				<version>4.4.3</version>
+				<artifactId>axon-bom</artifactId>
+				<version>4.5.10</version>
+				<type>pom</type>
+				<scope>import</scope>
 			</dependency>
 			<dependency>
 				<groupId>org.slf4j</groupId>

@@ -1,0 +1,36 @@
+{
+    // Use IntelliSense to learn about possible attributes.
+    // Hover to view descriptions of existing attributes.
+    // For more information, visit: https://go.microsoft.com/fwlink/?linkid=830387
+    "version": "0.2.0",
+    "configurations": [
+
+        {
+            "type": "java",
+            "name": "Launch Current File",
+            "request": "launch",
+            "mainClass": "${file}"
+        },
+        {
+            "type": "java",
+            "name": "Launch Shell",
+            "request": "launch",
+            "mainClass": "io.axoniq.demo.memories.client.ShellApp",
+            "projectName": "memories-demo-client"
+        },
+        {
+            "type": "java",
+            "name": "Launch ShopingSerivcesApp",
+            "request": "launch",
+            "mainClass": "io.axoniq.demo.memories.service.shopping.ShopingSerivcesApp",
+            "projectName": "memories-demo-shopping-service"
+        },
+        {
+            "type": "java",
+            "name": "Launch UpsellServicesApp",
+            "request": "launch",
+            "mainClass": "io.axoniq.demo.memories.service.upsell.UpsellServicesApp",
+            "projectName": "memories-demo-upsell-service"
+        }
+    ]
+}

@@ -3,6 +3,7 @@ package io.axoniq.demo.memories.api;
 import java.util.List;
 import java.util.UUID;
 
+import lombok.ToString;
 import org.axonframework.modelling.command.AggregateIdentifier;
 
 import lombok.AllArgsConstructor;

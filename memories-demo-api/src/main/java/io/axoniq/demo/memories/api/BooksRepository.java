@@ -16,15 +16,15 @@ public class BooksRepository {
 
 	private static Random random = new Random();
 
-	private static BooksRepository _instance;
+	private static BooksRepository THIS;
 
 	private ArrayList<Book> books = new ArrayList<>();
 
-	public static BooksRepository get() {
-		if (_instance == null) {
-			_instance = new BooksRepository();
+	private static BooksRepository get() {
+		if (THIS == null) {
+			THIS = new BooksRepository();
 		}
-		return _instance;
+		return THIS;
 	}
 	
 	private BooksRepository()  {
@@ -46,21 +46,22 @@ public class BooksRepository {
 	}
 
 	
-	public Book randomBook () {
-		return books.get(random.nextInt(books.size()));
+	public static Book randomBook () {
+		BooksRepository THIS = get();
+		return THIS.books.get(random.nextInt(THIS.books.size()));
 	}
 
-	public Book get (int id) {
-		return books.get(id);
+	public static Book get (int id) {
+		return get().books.get(id);
 	}
 
-	public Optional<Book> get (String title) {
-		return books.stream().filter(b -> b.getTitle().equals(title)).findFirst();
+	public static Optional<Book> get (String title) {
+		return get().books.stream().filter(b -> b.getTitle().equals(title)).findFirst();
 	}
 
 	
-	public List<String> getAllTitles () {
-		return books.stream().map(Book::getTitle).collect(Collectors.toList());
+	public static List<String> getAllTitles () {
+		return get().books.stream().map(Book::getTitle).collect(Collectors.toList());
 	}
 
 	

@@ -3,6 +3,7 @@ package io.axoniq.demo.memories.client;
 import java.io.IOException;
 import java.net.URISyntaxException;
 
+import io.axoniq.demo.memories.client.infra.Axon;
 import org.jline.builtins.Completers.TreeCompleter;
 import org.jline.reader.LineReader;
 import org.jline.reader.LineReaderBuilder;
@@ -16,19 +17,20 @@ import org.jline.utils.InfoCmp.Capability;
 import io.axoniq.demo.memories.api.Book;
 import io.axoniq.demo.memories.api.BooksRepository;
 
-public class Shell {
+public class ShellApp {
 	
-	private Client client = Client.get();
+	private final Client client = Client.get();
+	private final BulkOperationsClient bulkOperationsClient = BulkOperationsClient.get();
 
 	public static void main(String[] args) throws IOException, URISyntaxException {
-		new Shell();
+		new ShellApp();
 	}
 
-	public Shell() throws IOException, URISyntaxException {
+	public ShellApp() throws IOException, URISyntaxException {
 		Terminal terminal = TerminalBuilder.terminal();
 
 		TreeCompleter treeCompleter = new TreeCompleter(
-				TreeCompleter.node("soldCopies", TreeCompleter.node(new StringsCompleter(BooksRepository.get().getAllTitles()))),
+				TreeCompleter.node("soldCopies", TreeCompleter.node(new StringsCompleter(BooksRepository.getAllTitles()))),
 				TreeCompleter.node("buyBooks"),
 				TreeCompleter.node("generateSales"),
 				TreeCompleter.node("quit"),
@@ -66,12 +68,12 @@ public class Shell {
 						client.simulateClientShopping(param);
 					}
 					break;
-				case "generateSales":
-					client.generate(Integer.parseInt(param));
-					break;
 				case "soldCopies":
-					Book book = BooksRepository.get().get(param).get();
+					Book book = BooksRepository.get(param).get();
 					client.printSoldCopies(book.getId());
+					break;
+				case "generateSales":
+					bulkOperationsClient.generateSales(Integer.parseInt(param));
 					break;
 				default:
 					break;
@@ -81,7 +83,7 @@ public class Shell {
 			}
 		}
 
-		client.shutdown();
+		Axon.shutdown();
 	}
 
 }
